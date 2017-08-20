@@ -1,0 +1,221 @@
+//
+// @file
+// Experimental paragraphs widget CSS.
+//
+
+$top-gutter: 5px !default;
+$icon-size: 16px !default;
+
+// Paragraphs state information icons.
+.paragraphs {
+  &-icon {
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    background: no-repeat center;
+    background-size: contain;
+
+    $icons: view edit edit-disabled delete delete-disabled lock changed warning error;
+    @each $icon in $icons {
+      &-#{$icon} {
+        background-image: url('../icons/icon-#{$icon}.svg');
+      }
+    }
+  }
+}
+
+.paragraph-type-info {
+  display: flex;
+}
+
+.paragraph-type-actions {
+  display: flex;
+
+  // We need additional .button selector here so we reset classy .button
+  // margins.
+  .paragraphs-button.button {
+    margin-left: 0;
+    margin-right: $top-gutter;
+  }
+
+  .paragraphs-icon {
+    margin-right: $top-gutter;
+  }
+
+  // Dropdown actions are on the end.
+  .paragraph-actions {
+    order: 1;
+  }
+}
+
+.paragraphs-tabs-wrapper {
+  .paragraphs-tabs {
+    display: none;
+  }
+}
+
+// We are using .js prefix here mainly because we want to apply this style rules
+// only for JS version of a widget.
+.js {
+  .field--widget-paragraphs {
+    .paragraph-actions {
+      float: right;
+    }
+    th .paragraph-actions {
+      // Table th padding is 12px but for some weird reason here we need to do
+      // -11px to return it back.
+      margin-right: -11px;
+    }
+
+    .paragraphs-dropbutton-wrapper {
+      // We are using inline-flex here so 'Add type' dropdown button is inline
+      // and aligned 'to type' text.
+      display: inline-flex;
+    }
+
+    .dropbutton-wrapper {
+      // Override 600px breakpoint from core, needed again so 'to type' is in
+      // the same line with add dropdown button.
+      width: auto;
+
+      // Reset some CSS that are coming from core.
+      margin-right: 0;
+      padding-right: 0;
+    }
+
+    // Reset some CSS that are coming from core.
+    .dropbutton-widget {
+      position: static;
+    }
+
+    .field-multiple-table {
+      margin-bottom: 10px;
+    }
+
+    td { // stylelint-disable-line selector-no-type
+      padding: 10px 0;
+    }
+
+    .field-multiple-drag {
+      vertical-align: top;
+    }
+
+    .draggable .tabledrag-handle {
+      margin-left: 0;
+    }
+
+    .tabledrag-handle .handle {
+      margin-right: 0;
+      margin-left: 0;
+      padding-right: 0.2em;
+    }
+
+    .delta-order {
+      padding-right: 10px;
+      text-align: right;
+    }
+  }
+
+  .paragraph-type-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .paragraph-type-title {
+      padding-right: $top-gutter;
+    }
+
+    .paragraph-type-info {
+      padding-right: $top-gutter;
+    }
+
+    .paragraph-type-summary {
+      flex: 2;
+      padding-right: $top-gutter;
+    }
+  }
+
+  .paragraphs-subform {
+    margin-top: 5px;
+  }
+
+  .paragraphs-collapsed-description {
+    position: relative;
+    height: 1.538em;
+    overflow: hidden;
+    color: #777;
+    word-break: break-all;
+
+    // Fade out text element.
+    &::after {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 3em;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #fff 100%);
+      content: "\00a0";
+    }
+
+    .draggable:hover & {
+      &::after {
+        background: linear-gradient(to right, rgba(247, 252, 255, 0) 0%, #f7fcff 100%);
+      }
+    }
+
+    .drag-previous & {
+      &::after {
+        background: linear-gradient(to right, rgba(255, 255, 221, 0) 0%, #ffd 100%);
+      }
+    }
+  }
+
+  .paragraph-type {
+    &-title {
+      display: flex;
+      flex-basis: 100px;
+      min-width: 100px;
+    }
+
+    &-icon {
+      padding-right: 5px;
+      height: $icon-size;
+      width: $icon-size;
+    }
+
+    &-label {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    .paragraph-type-add-modal {
+      width: 100%;
+      padding: 10px 0;
+      height: 30px;
+      margin-top: -1.8em;
+      margin-bottom: -0.2em;
+      display: inline;
+    }
+  }
+
+  .paragraph-type-add-modal-button {
+    display: inline-block;
+    margin: 0 auto;
+  }
+
+  .paragraph-type-add-modal-button:hover {
+    color: #ffffff;
+    background: #057ec7 none;
+  }
+}
+
+.paragraph--view-mode--preview {
+  padding-right: 1em;
+}
+
+.is-horizontal .paragraphs-tabs .tabs__tab {
+  border-bottom: 0;
+}

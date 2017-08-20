@@ -1,0 +1,6 @@
+langcode: en
+status: true
+dependencies: {  }
+id: bp_simple
+label: Simple
+behavior_plugins: {  }

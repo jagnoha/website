@@ -1,0 +1,284 @@
+<?php
+
+/**
+ * @file
+ * Defines a view mode to set up the columns of the table for the IEF widget.
+ */
+
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+ * The name of the view mode.
+ */
+define('IEF_TABLE_VIEW_MODE_NAME', 'ief_table');
+
+/**
+ * Implements hook_inline_entity_form_table_fields_alter().
+ */
+function ief_table_view_mode_inline_entity_form_table_fields_alter(&$fields, $context) {
+  $entity_type = $context['entity_type'];
+  $original_fields = $fields;
+  $old_fields = array();
+  $change_apply = FALSE;
+  $entityManager = \Drupal::service('entity.manager');
+
+  foreach ($context['allowed_bundles'] as $bundle) {
+    $display = entity_load('entity_view_display', $entity_type . '.' . $bundle . '.' . IEF_TABLE_VIEW_MODE_NAME);
+    if (!$display || !($display instanceof EntityViewDisplayInterface) || !$display->status()) {
+      continue;
+    }
+
+    $old_fields = $fields;
+    if (!$change_apply) {
+      $fields = array();
+    }
+
+    $change_apply = TRUE;
+    $field_definitions = $entityManager->getFieldDefinitions($entity_type, $bundle);
+    // Checking fields instances.
+    foreach ($field_definitions as $field_name => $field_definition) {
+      if (!$field_definition->isDisplayConfigurable('view')) {
+        continue;
+      }
+      $display_options = $display->getComponent($field_name);
+      if (empty($display_options)) {
+        continue;
+      }
+      $fields[$field_name] = array(
+        'type' => 'field',
+        'label' => $field_definition->getLabel(),
+        'display_options' => $display_options,
+        'weight' => $display_options['weight'],
+      );
+    }
+
+    // Default settings maybe has not registered any extra field.
+    foreach ($old_fields as $old_field_name => $old_field) {
+      if (isset($fields[$old_field_name])) {
+        continue;
+      }
+      $display_options = $display->getComponent($old_field_name);
+      if (empty($display_options)) {
+        continue;
+      }
+      $fields[$old_field_name] = $old_field;
+      $fields[$old_field_name]['weight'] = $display_options['weight'];
+    }
+
+    $old_fields = array();
+
+    $extra_fields = $entityManager->getExtraFields($entity_type, $bundle);
+    $extra_fields = isset($extra_fields['display']) ? $extra_fields['display'] : array();
+
+    foreach ($extra_fields as $extra_field_name => $extra_field) {
+      $display_options = $display->getComponent($extra_field_name);
+      if (empty($display_options)) {
+        continue;
+      }
+      $fields[$extra_field_name] = array(
+        'type' => 'callback',
+        'label' => $extra_field['label']->render(),
+        'callback' => 'ief_table_view_mode_table_field_extra_field_callback',
+        'callback_arguments' => array($extra_field_name, $entityManager),
+        'weight' => $display_options['weight'],
+      );
+    }
+  }
+
+  if ($change_apply) {
+    \Drupal::moduleHandler()->alter('ief_table_view_mode_fields', $fields, $original_fields, $context);
+  }
+}
+
+
+/**
+ * Implements hook_form_FORM_ID_alter() for entity_view_display_edit_form() form.
+ */
+function ief_table_view_mode_form_entity_view_display_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $formObject = $form_state->getFormObject();
+  $entity = $formObject->getEntity();
+
+  if ($entity->getMode() != IEF_TABLE_VIEW_MODE_NAME) {
+    return;
+  }
+
+  // It proceeds to hide a choice label.
+  foreach (\Drupal\Core\Render\Element::children($form['fields']) as $field_name) {
+    $field_row = &$form['fields'][$field_name];
+    if ($field_row['#row_type'] == 'field') {
+      $field_row['label'] = array(
+        '#prefix' => \Drupal::translation()->translate('- Hidden -'),
+        '#type' => 'hidden',
+        '#value' => 'hidden',
+      );
+    }
+  }
+
+  $entityManager = \Drupal::service('entity.manager');
+  $found_ief_fields = FALSE;
+  $entity_type = $form['#entity_type'];
+  $bundle = $form['#bundle'];
+
+  $extra_fields = $entityManager->getExtraFields($entity_type, $bundle);
+  $extra_fields = isset($extra_fields['display']) ? $extra_fields['display'] : array();
+
+  $inlineHandler = $entityManager->getHandler($entity_type, 'inline_form');
+
+  $entityTypeBundleInfo = \Drupal::service('entity_type.bundle.info');
+  $bundles = $entityTypeBundleInfo->getBundleInfo($entity_type);
+  $table_fields = $inlineHandler->getTableFields(array_keys($bundles));
+  foreach ($table_fields as $name => $table_field) {
+    if (!in_array($name, $form['#fields']) || !in_array($name, $form['#extra'])) {
+      $found_ief_fields = TRUE;
+      $form['#extra'][] = $name;
+
+      $display = array(
+        'weight' => $table_field['weight'],
+        'visible' => TRUE
+      );
+
+      _ief_table_view_mode_add_extra_field($form['fields'], $name, $table_field, $display, $entity, $formObject);
+    }
+  }
+
+  if ($found_ief_fields) {
+    $form['ief_table_view_mode_info'] = array(
+      '#markup' => '* ' . \Drupal::translation()->translate('These fields come from the original definition of IEF.'),
+    );
+  }
+}
+
+
+/**
+ * The callback function use from table field.
+ */
+function ief_table_view_mode_table_field_extra_field_callback($entity, $variables, $field_name, $entityManager) {
+  $render_controller = $entityManager->getViewBuilder($entity->getEntityTypeId());
+
+  $view = $render_controller->view($entity, IEF_TABLE_VIEW_MODE_NAME);
+
+  $render = $render_controller->build($view);
+
+  return isset($render[$field_name]) ? $render[$field_name] : array();
+}
+
+
+/**
+ * Implements hook_field_widget_third_party_settings_form().
+ */
+function ief_table_view_mode_field_widget_third_party_settings_form(\Drupal\Core\Field\WidgetInterface $plugin, \Drupal\Core\Field\FieldDefinitionInterface $field_definition, $form_mode, $form, \Drupal\Core\Form\FormStateInterface $form_state) {
+  $element = array();
+
+  if ($plugin->getPluginId() != 'inline_entity_form_complex') {
+    return $element;
+  }
+
+  $entity_type = $field_definition->getSetting('target_type');
+  $entityManager = \Drupal::service('entity.manager');
+  $entityDefinition = $entityManager->getDefinition($entity_type);
+
+  $element['ief_table_view_mode'] = array(
+    '#type' => 'container',
+  );
+
+  $field_ui_base_route = $entityDefinition->get('field_ui_base_route');
+
+  if (!$field_ui_base_route) {
+    $message = \Drupal::translation()->translate('It is not posible to add fields to the table widget because the %entity_name entity does not have Manage display.', array('%entity_name' => $entityDefinition->getLabel()));
+
+    $element['ief_table_view_mode']['info'] = array(
+      '#markup' => $message,
+    );
+
+    return $element;
+  }
+
+  $message = \Drupal::translation()->translate('It is posible to add fields to the table widget, creatring and activating the view mode %name_view_name. Then go to Manage display of %entity_name entity.', array(
+    '%name_view_name' => $entity_type . '.' . IEF_TABLE_VIEW_MODE_NAME,
+    '%entity_name' => $entityDefinition->getLabel(),
+  ));
+
+  $element['ief_table_view_mode']['info'] = array(
+    '#markup' => $message,
+  );
+
+
+  return $element;
+}
+
+
+/**
+ * Add a new extra field in the table of the UI.
+ *
+ * @param array $element
+ *  The element with all fields.
+ * @param string $name
+ *  The machine name of the extra field.
+ * @param array $table_field
+ *  The definition of the field from ief.
+ * @param array $display
+ *  The view setting of the field.
+ * @param \Drupal\Core\Entity\EntityDisplayBase $entity
+ *  The entity display.
+ * @param \Drupal\field_ui\Form\EntityDisplayFormBase $formObject
+ *  The form object display form.
+ */
+function _ief_table_view_mode_add_extra_field(&$element, $field_id, $extra_field, $display, $entity, $formObject) {
+  $display_options = $entity->getComponent($field_id);
+  $regions = array_keys($formObject->getRegions());
+  $regions_options = $formObject->getRegionOptions();
+  $label = $extra_field['label'] instanceof TranslatableMarkup ? $extra_field['label']->render() : $extra_field['label'];
+  $element[$field_id] = array(
+    '#attributes' => array('class' => array('draggable', 'tabledrag-leaf')),
+    '#row_type' => 'extra_field',
+    '#region_callback' => array($formObject, 'getRowRegion'),
+    '#js_settings' => array('rowHandler' => 'field'),
+    'human_name' => array(
+      '#markup' => $label . '*',
+    ),
+    'weight' => array(
+      '#type' => 'textfield',
+      '#title' => \Drupal::translation()->translate('Weight for @title', array('@title' => $label)),
+      '#title_display' => 'invisible',
+      '#default_value' => $display_options ? $display_options['weight'] : 0,
+      '#size' => 3,
+      '#attributes' => array('class' => array('field-weight')),
+    ),
+    'parent_wrapper' => array(
+      'parent' => array(
+        '#type' => 'select',
+        '#title' => \Drupal::translation()->translate('Parents for @title', array('@title' => $label)),
+        '#title_display' => 'invisible',
+        '#options' => array_combine($regions, $regions),
+        '#empty_value' => '',
+        '#attributes' => array('class' => array('js-field-parent', 'field-parent')),
+        '#parents' => array('fields', $field_id, 'parent'),
+      ),
+      'hidden_name' => array(
+        '#type' => 'hidden',
+        '#default_value' => $field_id,
+        '#attributes' => array('class' => array('field-name')),
+      ),
+    ),
+    'region' => [
+      '#type' => 'select',
+      '#title' => \Drupal::translation()->translate('Region for @title', ['@title' => $extra_field['label']]),
+      '#title_display' => 'invisible',
+      '#options' => $regions_options,
+      '#default_value' => $display_options ? $display_options['region'] : 'hidden',
+      '#attributes' => ['class' => ['field-region']],
+    ],
+    'plugin' => [
+      'type' => [
+        '#type' => 'hidden',
+        '#value' => $display_options ? 'visible' : 'hidden',
+        '#parents' => ['fields', $field_id, 'type'],
+        '#attributes' => ['class' => ['field-plugin-type']],
+      ],
+    ],
+    'settings_summary' => [],
+    'settings_edit' => [],
+  );
+
+}

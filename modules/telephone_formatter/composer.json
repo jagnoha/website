@@ -3,7 +3,7 @@
     "description": "Additional formatters to Telephone field.",
     "type": "drupal-module",
     "require": {
-        "giggsey/libphonenumber-for-php": "^8.0"
+        "giggsey/libphonenumber-for-php": "^8.8"
     },
     "support": {
         "issues": "http://drupal.org/project/issues/telephone_formatter"

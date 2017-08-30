@@ -1,0 +1,28 @@
+# core: 8.x
+type: theme
+base theme: bootstrap
+
+name: 'SOLID'
+description: 'Bootstrap-based theme ideal for web agencies and freelancers (designed by BlackTie).'
+package: 'Bootstrap'
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Header'
+  banner: 'Banner'
+  help: 'Help'
+  content: 'Content'
+  sidebar: 'Side bar'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+libraries:
+  - 'solid/global-styling'
+
+# Information added by Drupal.org packaging script on 2017-04-22
+version: '8.x-1.1'
+core: '8.x'
+project: 'solid'
+datestamp: 1492876445

@@ -1,0 +1,33 @@
+* { 
+  margin: 0;
+  padding: 0px;
+}
+
+body { 
+  background: #ffffff; 
+  margin: 0; 
+  height: 100%; 
+  color: #384452;
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+
+  &.navbar-is-fixed-top {
+    margin-top: 69px;
+  }
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+::-moz-selection  {
+  color: #fff;
+  text-shadow:none;
+  background:#2B2E31;
+}
+::selection {
+  color: #fff;
+  text-shadow:none;
+  background:#2B2E31;
+}

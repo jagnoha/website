@@ -1,0 +1,281 @@
+/* Resetting the browser defaults */
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  margin: 0px !important;
+  font-family: 'Lato', sans-serif;
+  color: #2c3e50;
+}
+/* Navbar styling */
+.navbar {
+    margin-bottom: 0;
+    background-color: white;
+    z-index: 9999;
+    border: 0;
+    font-size: 12px !important;
+    line-height: 1.42857143 !important;
+    font-weight: bold;
+    border-radius: 0;
+}
+
+.mainnav {
+  z-index: 500;
+}
+
+
+.navbar li a, .navbar .navbar-brand {
+    color: #2c3e50;
+}
+
+.navbar-nav li a:hover, .navbar-nav li.active a {
+    color: red !important;
+}
+
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+.navbar-nav li a {
+  color: #2c3e50 !important;
+}
+
+.navbar-header {
+  width: 100%;
+}
+
+.header-head {
+  background: #bdc3c7;
+}
+
+.hh-container {
+    max-width: 44rem;
+    margin: auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.hh-container a{
+  font-family: 'lato';
+  color: #2c3e50;
+}
+
+.title {
+  font-size: 3em;
+}
+
+.header-head span.right {
+  float: right;
+}
+
+.header-head span.left {
+  float: left;
+}
+
+.header-head .right i {
+  padding-left: 15px;
+}
+
+.header-head i {
+  color: #2c3e50;
+}
+
+.header-head .left i {
+  padding-right: 15px;
+}
+/* Header (full screen) */
+
+.header {
+  background-image: url('../images/back2.jpg');
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  max-width: 100%;
+  height: 100vh;
+}
+
+.header h2 {
+  font-size: 2.5rem;
+  font-family: 'lato';
+}
+
+.header p {
+  font-size: 0.8rem;
+  color: #bdc3c7;
+  max-width: 32rem;
+}
+
+button.btn.btn-lg {
+  font-size: 0.5rem;
+  font-weight: bold;
+  padding: 0.6rem 1.5rem;
+}
+
+
+/*end of header styling */
+
+.about_top {
+  padding: 2rem;
+}
+
+.about_top p {
+    max-width: 30rem;
+    margin: auto;
+}
+
+
+footer {
+  background-color: #34495e;
+}
+
+.contact {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  background: #bdc3c7;
+}
+
+.contact button {
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+}
+
+.contact p {
+    max-width: 35rem;
+    margin: auto;
+}
+
+.contact h2, .contact p {
+  padding-bottom: 12px;
+}
+
+.float {
+  float: left;
+}
+
+.footer p, .footer h2, .footer h3 {
+  color: white;
+}
+
+
+#navigation a {
+  color: white;
+}
+
+button {
+  background-color: #2ecc71;
+}
+
+.nav-tint a {
+  color: white;
+}
+
+
+/* About Container Styling */
+
+.col-sm-4 {
+  display: inline-flex;
+}
+
+.col-sm-4 i {
+  padding-top: 16px;
+}
+
+.column {
+  padding-left: 20px;
+}
+
+i {
+  color: #2ecc71;
+}
+
+.about_top h2, .column h3, .contact h2 {
+  font-weight: bold;
+}
+
+.con {
+  margin-bottom: 3rem;
+}
+
+
+/* Footer Styling */
+.footer {
+  max-width: 105rem;
+  margin: auto;
+  border-top: 0px !important;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.foot {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+.footer h2 {
+  font-weight: bolder;
+  margin-top: 10px;
+  font-size: 40px;
+}
+
+.footer p {
+  font-size: 12px;
+  color: #bdc3c7;
+}
+
+.footer h3 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+p.foot-fa {
+  margin-bottom: 3px;
+  color: #bdc3c7;
+}
+
+p.foot-arrow {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.foot-arrow i, .foot-fa i {
+  color: #bdc3c7;
+}
+
+/* Footer Foot block */
+
+.footer-foot p, .footer-foot a {
+  color: #bdc3c7;
+  font-size: 12px;
+  margin: 0;
+}
+
+.foot-container {
+  background: #2c3e50;
+  padding: 10px 20px 10px 20px;
+}
+
+.footer-foot i {
+  color: white;
+}
+
+.footer-foot p {
+  float: left;
+}
+.footer-foot span {
+  float: right;
+}
+
+.footer-foot a {
+  padding-left: 10px;
+}
+
+.footer img {
+  height: auto;
+  max-width: 210px;
+}

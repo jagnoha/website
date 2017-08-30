@@ -1,0 +1,54 @@
+global-components:
+  Version: 1.x
+  css:
+    theme:
+      assets/css/style.css: {}
+      assets/css/media.css: {}
+      assets/css/colors.css: {}
+  js:
+    assets/js/jquery.smartmenus.min.js: {}
+    assets/js/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/jquery.ui
+    - core/drupal
+    - core/drupalSettings
+    - core/jquery.once
+
+bootstrap:
+  version: VERSION
+  css:
+    theme:
+      assets/lib/bootstrap/css/bootstrap.min.css: {}
+  js:
+    assets/lib/bootstrap/js/bootstrap.min.js: {}
+  dependencies:
+    - core/jquery
+
+font-awesome:
+  version: VERSION
+  css:
+    theme:
+      assets/css/font-awesome.min.css: {}
+
+sticky-header:
+  version: VERSION
+  js:
+    assets/lib/jquery-sticky/jquery.sticky.js: {}
+  dependencies:
+    - core/jquery
+    
+color.preview:
+  version: VERSION
+  css:
+    theme:
+      color/preview.css: {}
+  dependencies:
+    - color/drupal.color
+
+fonts:
+  version: VERSION
+  css:
+    base:
+      'https://fonts.googleapis.com/css?family=Montserrat:400,100,300,700,900': { type: external }
+      'https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900': { type: external }

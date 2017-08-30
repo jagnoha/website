@@ -1,0 +1,45 @@
+body {
+  background-image: url(../images/body_bg7.png);
+  background-repeat: repeat;
+  font-family: Raleway, sans-serif;
+}
+body a {
+  font-family: Raleway, sans-serif;
+  text-decoration: none;
+}
+body a:hover {
+  text-decoration: none;
+}
+#main-navbar-collapse li a {
+  font-family: Raleway, sans-serif;
+  text-decoration: none;
+}
+#main-navbar-collapse li a:hover {
+  text-decoration: none;
+}
+#footer a {
+  font-family: Raleway, sans-serif;
+  text-decoration: none;
+}
+#footer a:hover {
+  text-decoration: none;
+}
+
+h1 {
+  font-family: Raleway, sans-serif!important;
+}
+h2 {
+  font-family: Raleway, sans-serif!important;
+}
+h3 {
+  font-family: Raleway, sans-serif!important;
+}
+h4 {
+  font-family: Raleway, sans-serif!important;
+}
+h5 {
+  font-family: Raleway, sans-serif!important;
+}
+h6 {
+  font-family: Raleway, sans-serif!important;
+}

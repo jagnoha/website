@@ -1,0 +1,5 @@
+# Schema for the configuration files of the Classy Pan theme.
+
+used_cars.settings:
+  type: theme_settings
+  label: 'Used Cars settings'

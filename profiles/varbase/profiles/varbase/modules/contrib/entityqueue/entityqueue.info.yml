@@ -1,0 +1,11 @@
+name: Entityqueue
+type: module
+description: 'Allows users to collect entities in arbitrarily ordered lists.'
+package: Entityqueue
+core: 8.x
+configure: entity.entity_queue.collection
+
+# Information added by drush on 2017-01-23
+version: '8.x-1.0-alpha6+6-dev'
+project: 'entityqueue'
+datestamp: 1485191271

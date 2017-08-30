@@ -1,0 +1,131 @@
+/* ---------- Color Module Styles ----------- */
+
+body {
+  background-color: #f8f8f8 !important;
+}
+/*body,
+#color legend {
+  color: #ffffff !important;
+}*/
+.tabs ul.primary li a.is-active {
+  background-color: #ffffff;
+}
+.tabs ul.primary li.is-active a {
+  background-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+/*#header {
+  background: #12abff;
+}*/
+
+#color a,
+#color .link {
+  color: #000002;
+}
+#color a:hover,
+#color a:focus,
+#color .link:hover,
+#color .link:focus {
+  color: #000000 !important;
+}
+.contextual-links a {
+  color: #333 !important;
+}
+.contextual-links a:hover {
+  color: #000000 !important;
+  background: #e7e8e9 !important;
+}
+#block-views-block-featured-services-block-1 .views-row .icon_bg {
+  background: #d50125;
+  border: 1px solid #12abff;
+}
+.top_block {
+  background: #ffffff !important;
+}
+/*.pricing-table.views-r0ow:hover {
+      box-shadow: 0 0 10px #12abff;
+}*/
+#block-views-block-featured-services-block-1 .views-row .icon_bg:hover i,
+.views-field-field-button-name a:hover {
+  color: #d50125;
+}
+/*.pricing-table .views-field-title {
+  text-shadow: 1px 1px 0px #12abff;
+}*/
+.history-content .views-field-field-left-info:after,
+.views-field-field-button-name a,
+#block-views-block-category-blog-block-1,
+#block-views-block-recent-blog-block-1 {
+  background: #12abff !important;
+}
+.views-field-field-button-name a:hover {
+  border: 2px solid #12abff;
+}
+/*.menu-item--expanded .menu {
+  background: #d50125;
+}*/
+.management.views-row .views-field-field-images-management .post_name {
+  border-left: 9px solid #12abff;
+  border-right: 9px solid #12abff;
+}
+a:active,
+.link:active {
+  color: #23aeff;
+}
+.site-footer {
+  background: #2c2c28;
+  color: #ffffff;
+}
+#footer .bottom_footer a {
+  color: #ffffff;
+}
+#footer a:hover {
+  color: #cccccc;
+}
+.region-header,
+.region-header a,
+.region-header li a.is-active,
+.site-branding__text,
+.site-branding,
+.site-branding__text a,
+.site-branding a,
+.region-secondary-menu .menu-item a,
+.region-secondary-menu .menu-item a.is-active {
+  color: #fffeff;
+}
+.sidebar-first {
+  background: #ffffff;
+}
+.form-actions .form-submit,
+#search-form .form-submit,
+ul.inline li a,
+ul.links.inline li a,
+.form-actions .form-submit:focus,
+#search-form .form-submit:hover,
+#search-form .form-submit:focus,
+.top_block .menu .menu-item a.is-active,
+.top_block .menu .menu-item a:hover {
+  background: #d50125;
+}
+/*h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #fffff3 !important;
+}*/
+
+/* ---------- Color Form ----------- */
+
+[dir="rtl"] .color-form .color-palette {
+  margin-left: 0;
+  margin-right: 20px;
+}
+[dir="rtl"] .color-form .form-item label {
+  float: right;
+}
+[dir="rtl"] .color-form .color-palette .lock {
+  right: -20px;
+  left: 0;
+}

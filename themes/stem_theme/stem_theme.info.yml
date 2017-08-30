@@ -1,0 +1,44 @@
+name: Stem Theme
+type: theme
+description: 'Stem Drupal 8 Responsive Theme. Developed & Designed by <a href=http://www.hugestem.com>HugeStem</a>'
+package: core
+# version: '8.x-1.0'
+# core: '8.x'
+
+#Libraries
+libraries:
+  - stem_theme/bootstrap
+  - stem_theme/font-awesome
+  - stem_theme/fonts
+  - stem_theme/global-components
+stylesheets-remove:
+  - core/assets/vendor/normalize-css/normalize.css
+  - core/modules/system/css/system.module.css
+  - core/modules/system/css/system.theme.css
+  - core/modules/views/css/views.module.css
+
+#Regions
+regions:
+  header_top_left: 'Header Top Left'
+  header_top_right: 'Header Top Right'
+  header: 'Header'
+  primary_menu: 'Primary Menu'
+  search: 'Search'
+  slider: 'Slider'
+  page_title: 'Page Title'
+  breadcrumb: 'Breadcrumb'
+  content: 'Content'
+  sidebar_first: 'Left Sidebar'
+  sidebar_second: 'Right Sidebar'
+  content_wide: 'Content Wide'
+  footer_first: 'Footer First Widget'
+  footer_second: 'Footer Second Widget'
+  footer_third: 'Footer Third Widget'
+  footer_forth: 'Footer Forth Widget'
+  footer: 'Footer'
+  auto_hidden_block: 'Auto hidden blocks'
+# Information added by Drupal.org packaging script on 2017-06-21
+version: '8.x-1.2'
+core: '8.x'
+project: 'stem_theme'
+datestamp: 1498006145

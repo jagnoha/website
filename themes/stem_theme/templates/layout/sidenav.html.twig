@@ -1,0 +1,77 @@
+{% if sidenav and sidenav_element %}
+	<span class="header-element-icon sideopenbtn sideopenbtn-float" onclick="openNav()">
+	<button type="button" class="sidenav-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>	
+	</span>
+{% endif %}
+			
+<div id="sidenav" class="sidenav {{ sidenav_color }}">
+<div class="sidenav-container">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="fa fa-close"></i></a>
+  <a href="javascript:void(0)" class="sidenav-overlay" onclick="closeNav()"></a>	  
+	<div class="clearfix sidenav-content">
+	{% if sidenav and sidenav_element %}
+		{% if page.header %}
+		<div class="header-brand">
+          {{ page.header }}
+		</div>
+		{% endif %}
+
+		{% if page.primary_menu %}
+		<div class="primary-navbar{% if single_page_menu %} single-page-menu{% endif %}">
+          {{ page.primary_menu }}	  
+        </div>
+		{% endif %}
+	{% endif %}
+	
+		{% if page.sidenav %}
+			{{ page.sidenav }}
+		{% endif %}
+	
+	{% if sidenav and sidenav_element %}
+		{% if page.search or page.shopping_cart or header_social_icon %}
+		<div class="header-element">
+			{% if header_social_icon %}
+			<div class="header-element-item">
+				<span type="button" class="header-element-icon search-icon" data-toggle="modal" data-target="#social-modal"><i class="fa fa-share-alt"></i></span>
+			</div>
+			{% endif %}
+
+			{% if page.search %}
+			<div class="header-element-item header-element-search">
+			{% if header_search_style == 'search-toggle' %}
+			<div id="search">
+			<span class="header-element-icon search-icon search-trigger"><i class="fa fa-search"></i></span>
+			<div class="search-bar">
+			<div class="search-wrap">{{ page.search }}</div>
+			</div>
+			</div>
+			{% elseif header_search_style == 'search-overlay' %}
+			<span type="button" class="header-element-icon search-icon" data-toggle="modal" data-target="#search-modal"><i class="fa fa-search"></i></span>
+			{% endif %}
+			</div>
+			{% endif %}
+			
+			{% if page.shopping_cart %}
+			<div class="header-element-item header-element-cart">
+			<div id="shopping-cart">
+			<span class="header-element-icon shopping-cart-icon shopping-cart-trigger"><a href="{{ path('<front>') }}cart"><i class="fa fa-shopping-bag"></i></a></span>
+			<div class="shopping-cart-bar">
+			<div class="shopping-cart-wrap">{{ page.shopping_cart }}</div>
+			</div>
+			</div>
+			</div>
+			{% endif %}
+
+		</div>
+		{% endif %}
+	{% endif %}
+</div>
+<a href="javascript:void(0)" class="sidenav-overlay" onclick="closeNav()"></a>		
+</div>
+
+</div>

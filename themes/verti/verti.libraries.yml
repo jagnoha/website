@@ -1,0 +1,17 @@
+global-styling:
+  version: VERSION
+  css:
+    base:
+      assets/css/main.css: {}
+      assets/css/font-awesome.min.css: {}
+  js:
+    assets/js/skel.min.js: {}
+    assets/js/util.js: {}
+    assets/js/main.js: {}
+    dependencies:
+      - core/jquery
+dropotron:
+  js:
+    assets/js/jquery.dropotron.min.js: {}
+    dependencies:
+      - core/jquery

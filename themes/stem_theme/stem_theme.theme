@@ -1,0 +1,404 @@
+<?php
+
+/**
+ * @file
+ * stem_theme
+ *
+ * Filename:     Stem Theme
+ * Website:      http://www.hugestem.com
+ * Description:  Drupal 8 Responsive Template
+ * Author:       HUGESTEM
+ */
+ define('THEME_PATH', base_path() . drupal_get_path('theme', 'stem_theme'));
+
+use Drupal\Core\Template\RenderWrapper;
+use Drupal\Core\Template\Attribute;
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\system\Form\ThemeSettingsForm;
+use Drupal\Core\Url;
+
+function stem_theme_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  if ($view->id() == "frontpage" && $view->current_display == 'page_1') {
+    // Use some or all of the following 3 lines to remove specific
+    // 'no results' behaviors
+    unset($view->empty['area_text_custom']);
+    unset($view->empty['node_listing_empty']);
+    unset($view->empty['title']);
+  }
+}
+
+/**
+ * Implements hook_preprocess_page() for templates.
+ */
+function stem_theme_preprocess_page(&$variables) {
+  // GET SITE NAME
+  $variables['site_name'] = \Drupal::config('system.site')->get('name');
+  //$variables['copyright'] = theme_get_setting('copyright');
+  // GET CURRENT YEAR
+  $variables['copyright_date'] = date("Y");
+  
+  // RESPONSIVE CLASS FOR FOOTER WIDGET
+  if (!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_second']) && !empty($variables['page']['footer_third']) && !empty($variables['page']['footer_forth'])) {
+    $variables['footer_class'] = t('col-md-3');
+  }
+  else if ((!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_second']) && !empty($variables['page']['footer_third'])) or (!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_second']) && !empty($variables['page']['footer_forth'])) or (!empty($variables['page']['footer_second']) && !empty($variables['page']['footer_third']) && !empty($variables['page']['footer_forth']))) {
+    $variables['footer_class'] = 'col-md-4';
+  }
+  else if((!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_second'])) or (!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_third'])) or (!empty($variables['page']['footer_first']) && !empty($variables['page']['footer_forth'])) or (!empty($variables['page']['footer_second']) && !empty($variables['page']['footer_third'])) or (!empty($variables['page']['footer_second']) && !empty($variables['page']['footer_forth'])) or (!empty($variables['page']['footer_third']) && !empty($variables['page']['footer_forth']))) {
+    $variables['footer_class'] = 'col-md-6';
+  }
+  else {
+    $variables['footer_class'] = 'col-md-12';
+  }
+  
+  // DYNAMIC CLASS FOR THE NUMBER OF SIDEBARS
+  if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
+    $variables['contentlayout'] = 'col-md-6';
+    $variables['sidebarfirst'] = 'col-md-3';
+    $variables['sidebarsecond'] = 'col-md-3';
+  }
+  elseif (!empty($variables['page']['sidebar_first'])) {
+    $variables['contentlayout'] = 'col-md-8 ';
+    $variables['sidebarfirst'] = 'col-md-4';
+  }
+  elseif (!empty($variables['page']['sidebar_second'])) {
+    $variables['contentlayout'] = 'col-md-8';
+    $variables['sidebarsecond'] = 'col-md-4';
+  }
+  else {
+    $variables['contentlayout'] = 'col-md-12';
+  }
+  
+  // BASIC SETTINGS VARIABLE
+  $variables['preloader'] = theme_get_setting('preloader');
+  $variables['scrolltop'] = theme_get_setting('scrolltop');
+
+  // LAYOUT SETTINGS VARIABLE
+  $variables['site_layout'] = theme_get_setting('site_layout');
+  // HEADER SETTINGS VARIABLE
+  $variables['preheader'] = theme_get_setting('preheader');
+  $variables['fixed_header'] = theme_get_setting('fixed_header');
+  $variables['header_style'] = theme_get_setting('header_style');
+  $variables['header_theme'] = theme_get_setting('header_theme');
+
+  // FOOTER SETTINGS VARIABLE
+  $variables['footer_style'] = theme_get_setting('footer_style');
+  $variables['footer_theme'] = theme_get_setting('footer_theme');
+  $variables['copyright_text'] = theme_get_setting('copyright_text');
+  
+  // SOCIAL MEDIA VARIABLE
+  $variables['footer_social_icon'] = theme_get_setting('footer_social_icon');
+  $variables['facebook_url'] = theme_get_setting('facebook_url');
+  $variables['google_plus_url'] = theme_get_setting('google_plus_url');
+  $variables['twitter_url'] = theme_get_setting('twitter_url');
+  $variables['linkedin_url'] = theme_get_setting('linkedin_url');
+  $variables['instagram_url'] = theme_get_setting('instagram_url');
+  $variables['pinterest_url'] = theme_get_setting('pinterest_url');
+  $variables['youtube_url'] = theme_get_setting('youtube_url');
+  $variables['vimeo_url'] = theme_get_setting('vimeo_url');
+  $variables['dribbble_url'] = theme_get_setting('dribbble_url');
+  $variables['rss_url'] = theme_get_setting('rss_url');
+
+	// LOAD FIXED HEADER LIBRARY
+	if ($variables['fixed_header']) {
+		$variables['#attached']['library'][] = 'stem_theme/sticky-header';
+	}
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function stem_theme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $path_args = explode('/', trim(\Drupal::service('path.current')->getPath(), '/'));
+  $suggestions = theme_get_suggestions($path_args, 'page');
+  $http_error_suggestions = [
+    'system.401' => 'page__401',
+    'system.403' => 'page__403',
+    'system.404' => 'page__404',
+  ];
+  $route_name = \Drupal::routeMatch()->getRouteName();
+  if (isset($http_error_suggestions[$route_name])) {
+    $suggestions[] = $http_error_suggestions[$route_name];
+  }
+  return $suggestions;
+}
+
+/**
+ * Implements hook_preprocess_breadcrumb().
+ */
+function stem_theme_preprocess_breadcrumb(&$variables) {
+  if ($variables['breadcrumb']) {
+    $request = \Drupal::request();
+    $route_match = \Drupal::routeMatch();
+    $page_title = \Drupal::service('title_resolver')->getTitle($request, $route_match->getRouteObject());
+    
+    if (!empty($page_title)) {
+      $variables['breadcrumb'][] = [
+        'text' => $page_title,
+        'attributes' => new Attribute(['class' => ['active']])
+      ];
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for block templates.
+ */
+function stem_theme_theme_suggestions_block_alter(array &$suggestions, array $variables) {
+  if (isset($variables['elements']['content']['#block_content'])) {
+    array_splice($suggestions, 1, 0, 'block__custom__' . $variables['elements']['content']['#block_content']->bundle());
+  }
+}
+
+/**
+ * hide wysiwyg from comments.
+ */
+function stem_theme_form_alter(&$form, &$form_state, $form_id) {
+	if ($form_id == 'comment_form') {
+		$form['comment_filter']['format'] = array();
+	}
+}
+
+/**
+ * Implements hook_preprocess_user().
+ */
+function stem_theme_preprocess_user(&$variables) {
+  $view_mode = isset($variables['elements']['#view_mode']) ? $variables['elements']['#view_mode'] : 'default';
+  $variables['attributes']['class'][] = $view_mode;
+  $variables['view_mode'] = $view_mode;
+
+  $user = $variables['user'];
+  $variables['name'] = $user->label();
+}
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function stem_theme_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+	
+	$form['stem_theme_settings']['tabs'] = array(
+		'#type' => 'vertical_tabs',
+		'#default_tab' => 'def_tab',
+	);
+
+	// DEFAULT DRUPAL SETTINGS    
+	$form['options']['drupal_default_settings'] = array(
+		'#type' => 'details',
+		'#title' => t('Drupal Core Settings'),
+		'#collapsible' => TRUE,
+		'#collapsed' => TRUE,
+		'#group' => 'tabs',
+		'#weight' => '-10',
+	);
+	
+	    // "Toggle Display" 
+		$form['options']['drupal_default_settings']['def_tab']['theme_settings'] = $form['theme_settings'];
+		
+		// "Unset default Toggle Display settings" 
+		unset($form['theme_settings']);
+		
+		// "Logo Image Settings" 
+		$form['options']['drupal_default_settings']['def_tab']['logo'] = $form['logo'];
+		
+		// "Unset default Logo Image Settings" 
+		unset($form['logo']);
+		
+		// "Shortcut Icon Settings" 
+		$form['options']['drupal_default_settings']['def_tab']['favicon'] = $form['favicon'];
+		
+		// "Unset default Shortcut Icon Settings" 
+		unset($form['favicon']);
+	
+	//BASIC SETTINGS
+    $form['stem_theme_settings']['tabs'] = array(
+        '#type' => 'vertical_tabs',
+        '#default_tab' => 'basic_tab',
+    );
+
+    $form['stem_theme_settings']['basic_tab']['basic_settings'] = array(
+        '#type' => 'details',
+        '#title' => t('General'),
+        '#collapsible' => TRUE,
+        '#collapsed' => FALSE,
+		'#group' => 'tabs',
+    );
+	// PRELOADER
+    $form['stem_theme_settings']['basic_tab']['basic_settings']['preloader'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show Preloader'),
+        '#description'   => t('Use the checkbox to enable or disable the preloader.'),
+        '#default_value' => theme_get_setting('preloader'),
+    );
+	// SCROLL TO TOP BUTTON
+    $form['stem_theme_settings']['basic_tab']['basic_settings']['scrolltop'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Show scroll to top button'),
+        '#description'   => t('Use the checkbox to enable or disable scroll to top button.'),
+        '#default_value' => theme_get_setting('scrolltop'),
+    );
+
+  // HEADER SETTINGS
+	$form['stem_theme_settings']['tabs'] = array(
+		'#type' => 'vertical_tabs',
+		'#default_tab' => 'header_tab',
+	);
+  
+	$form['stem_theme_settings']['header_tab']['header_settings'] = array(
+		'#type' => 'details',
+		'#title' => t('Header'),
+		'#collapsible' => TRUE,
+		'#collapsed' => TRUE,
+		'#group' => 'tabs',
+	);
+	
+	// FIXED HEADER OPTIONS
+	$form['stem_theme_settings']['header_tab']['header_settings']['fixed_header'] = array(
+		'#type' => 'checkbox',
+		'#title' => t('Fixed Header'),
+		'#description'   => t('Use the checkbox to apply fixed position to the header.'),
+		'#default_value' => theme_get_setting('fixed_header'),
+	);
+
+	// HEADER COLOR OPTIONS
+    $form['stem_theme_settings']['header_tab']['header_settings']['header_color'] = array(
+      '#type' => 'fieldset',
+	  '#title' => t('Header Color'),
+    );	
+	
+		$form['stem_theme_settings']['header_tab']['header_settings']['header_color']['header_theme'] = array(
+			'#title' => t('Select Header Background Color'),
+			'#default_value' => theme_get_setting('header_theme'),
+			'#type' => 'select',
+			'#options' => array(
+						'light-header' => t('Light'),
+						'dark-header' => t('Dark'),
+						'colored-header colored-header-half' => t('Colored'),
+						'colored-header colored-header-full' => t('Colored Full'),
+				),
+		);
+
+	// FOOTER SETTINGS
+	$form['stem_theme_settings']['tabs'] = array(
+		'#type' => 'vertical_tabs',
+		'#default_tab' => 'footer_tab',
+	);
+  
+	$form['stem_theme_settings']['footer_tab']['footer_settings'] = array(
+		'#type' => 'details',
+		'#title' => t('Footer'),
+		'#collapsible' => TRUE,
+		'#collapsed' => TRUE,
+		'#group' => 'tabs',
+	);
+
+	// FOOTER STYLE
+    $form['stem_theme_settings']['footer_tab']['footer_settings']['footer_style'] = array(
+        '#title' => t('Footer Style'),
+        '#default_value' => theme_get_setting('footer_style'),
+		'#type' => 'select',
+		'#options' => array(
+					'footer1' => t('Footer Style 1'),
+					'footer2' => t('Footer Style 2'),
+			),
+    );
+	
+	// FOOTER COLOR OPTIONS
+    $form['stem_theme_settings']['footer_tab']['footer_settings']['footer_color'] = array(
+      '#type' => 'fieldset',
+	  '#title' => t('footer Color'),
+    );	
+	
+		$form['stem_theme_settings']['footer_tab']['footer_settings']['footer_color']['footer_theme'] = array(
+			'#title' => t('Select footer Background Color'),
+			'#default_value' => theme_get_setting('footer_theme'),
+			'#type' => 'select',
+			'#options' => array(
+						'light-footer' => t('Light'),
+						'dark-footer' => t('Dark'),
+						'colored-footer' => t('Colored'),
+						'plain-footer' => t('Plain'),
+				),
+		);
+		
+	// FOOTER COPYRIGHT TEXT
+	$form['stem_theme_settings']['footer_tab']['footer_settings']['copyright_text'] = array(
+		'#type' => 'checkbox',
+		'#title' => t('Copyright Text'),
+		'#default_value' => theme_get_setting('copyright_text'),
+		'#description'   => t("Show/Hide Copyright Text in footer"),
+	);
+
+	// SOCIAL ICON LINK SETTING
+		$form['stem_theme_settings']['tabs'] = array(
+		'#type' => 'vertical_tabs',
+		'#default_tab' => 'social_tab',
+	);
+
+	$form['stem_theme_settings']['social_tab']['social_settings'] = array(
+		'#type' => 'details',
+		'#title' => t('Social Media Link'),
+		'#collapsible' => TRUE,
+		'#collapsed' => TRUE,
+		'#group' => 'tabs',
+	);
+	
+	$form['stem_theme_settings']['social_tab']['social_settings']['footer_social_icon'] = array(
+		'#type' => 'checkbox',
+		'#title' => t('Show Social Icons in Footer'),
+		'#default_value' => theme_get_setting('footer_social_icon'),
+		'#description'   => t("Show/Hide social media icon in footer"),
+	);
+
+	// SOCIAL MEDIA
+	$form['stem_theme_settings']['social_tab']['social_settings']['facebook_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Facebook Link'),
+		'#default_value' => theme_get_setting('facebook_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['google_plus_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Google plus Link'),
+		'#default_value' => theme_get_setting('google_plus_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['twitter_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Twitter Link'),
+		'#default_value' => theme_get_setting('twitter_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['linkedin_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Linkedin Link'),
+		'#default_value' => theme_get_setting('linkedin_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['instagram_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Instagram Link'),
+		'#default_value' => theme_get_setting('instagram_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['pinterest_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Pinterest Link'),
+		'#default_value' => theme_get_setting('pinterest_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['youtube_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Youtube Link'),
+		'#default_value' => theme_get_setting('youtube_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['vimeo_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Vimeo Link'),
+		'#default_value' => theme_get_setting('vimeo_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['dribbble_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Dribbble Link'),
+		'#default_value' => theme_get_setting('dribbble_url'),
+	);
+	$form['stem_theme_settings']['social_tab']['social_settings']['rss_url'] = array(
+		'#type' => 'textfield',
+		'#title' => t('RSS Link'),
+		'#default_value' => theme_get_setting('rss_url'),
+	);
+}

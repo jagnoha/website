@@ -1,0 +1,121 @@
+{# @file stem_theme footer #}
+<div id="footer" class="footer {{ footer_style }} {{ footer_theme }}">
+
+	<!-- start: Footer -->
+	{% if page.footer_first or page.footer_second or page.footer_third or page.footer_forth %}
+	  <div class="footer-widget">
+		<div class="container">
+			{% if page.footer_first %}
+			<!-- Start Footer First Region -->
+			<div class="{{ footer_class }} footer-widget-section">
+				{{ page.footer_first }}
+			</div>
+			<!-- End Footer First Region -->
+			{% endif %}
+
+			{% if page.footer_second %}
+			<!-- Start Footer Second Region -->
+			<div class="{{ footer_class }} footer-widget-section">
+				{{ page.footer_second }}
+			</div>
+			<!-- End Footer Second Region -->
+			{% endif %}
+
+			{% if page.footer_third %}
+			<!-- Start Footer Third Region -->
+			<div class="{{ footer_class }} footer-widget-section">
+				{{ page.footer_third }}
+			</div>
+			<!-- End Footer Third Region -->
+			{% endif %}
+			
+			{% if page.footer_forth or footer_social_icon %}
+			<!-- Start Footer Forth Region -->
+			<div class="{{ footer_class }} footer-widget-section">
+				{{ page.footer_forth }}
+			</div>
+			<!-- End Footer Forth Region -->
+			{% endif %}
+		</div>
+	  </div>
+	{% endif %}
+	<!--End Footer -->
+
+	<div class="footer-bottom">
+{% if footer_style == 'footer1' %}
+
+	  <div class="container">
+		<div class="row">
+		
+		{% if copyright_text %}
+		  <!-- Copyright -->
+		  <div class="col-md-6 col-sm-6 col-xs-12 text-left">
+			<div class="copyright">
+			{{ 'Copyright ©' | t }} {{ copyright_date }} {{ site_name }}{{ '· All rights reserved' | t }}
+			</div>
+		  </div>
+		  <!-- End Copyright -->
+
+		  <div class="col-md-6 col-sm-6 col-xs-12 text-right">
+			{{ page.footer }}
+				{% if footer_social_icon %}
+				  <div class="social-media {{ footer_social_style }} {{ footer_social_shape }}">
+				  {% include '@stem_theme/layout/social-link.html.twig' %}
+				  </div>
+				{% endif %}
+		  </div>
+		{% else %}
+		
+		  <div class="col-md-12">
+			{{ page.footer }}
+			
+			{% if footer_social_icon %}
+				<div class="social-media {{ footer_social_style }} {{ footer_social_shape }}">
+				 {% include '@stem_theme/layout/social-link.html.twig' %}
+				</div>
+			{% endif %}
+		  </div>	
+		
+		{% endif %}
+		</div>
+	  </div>
+
+{% elseif footer_style == 'footer2' %}
+
+	<div class="text-center">
+	{{ page.footer }}
+	</div>
+
+    {% if footer_social_icon %}
+		<div class="container">
+		<div class="row">
+		<div class="col-sm-12">
+            <div class="social-media">
+		    {% include '@stem_theme/layout/social-link.html.twig' %}
+		    </div>
+		</div>
+		</div>
+		</div>
+    {% endif %}
+	
+	{% if copyright_text %}
+      <!-- Copyright -->
+		<div class="container">
+		<div class="row">
+		<div class="col-sm-12">
+		<div class="copyright">
+			<p class="credit-link">{{ 'Copyright ©' | t }} {{ copyright_date }} {{ site_name }}{{ '· All rights reserved' | t }}</p>      
+		</div>
+		</div>
+		</div>
+		</div>
+      <!-- End Copyright -->	
+	  {% endif %}
+	  
+{% endif %}
+	</div>
+
+{% if scrolltop %}
+	<div class="back-to-top"><span class="glyphicon glyphicon-chevron-up"></span></div>
+{% endif %}
+</div>

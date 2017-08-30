@@ -1,0 +1,23 @@
+# @Stem Theme Default features.
+features:
+   comment_user_picture: true
+   comment_user_verification: true
+   favicon: true
+   logo: true
+   name: false
+   node_user_picture: true
+   slogan: false
+scrolltop: '1'
+fixed_header: '0'
+preheader: '0'
+header_theme: 'light-header'
+footer_style: 'footer1'
+footer_theme: 'dark-footer'
+copyright_text: '1'
+footer_social_icon: '1'
+facebook_url: 'https://www.facebook.com/'
+twitter_url: 'https://twitter.com/'
+google_plus_url: 'https://plus.google.com/'
+linkedin_url: 'http://www.linkedin.com/'
+pinterest_url: 'https://www.pinterest.com/'
+rss_url: 'rss.xml'

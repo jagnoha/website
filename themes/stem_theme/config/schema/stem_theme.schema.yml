@@ -1,0 +1,4 @@
+# Schema for the configuration files of the stem theme.
+stem_theme.settings:
+  type: theme_settings
+  label: 'Stem Theme Settings'

@@ -1,0 +1,139 @@
+/* ---------- Color Module Styles ----------- */
+
+body {
+  background-color: #066490 !important;
+}
+body,
+#color legend {
+  color: #ffffff !important;
+}
+.tabs ul.primary li a.is-active {
+  background-color: #ffffff;
+}
+.tabs ul.primary li.is-active a {
+  background-color: #ffffff;
+  border-bottom-color: #ffffff;
+}
+/*#header {
+  background: #12abff;
+}*/
+#site-navigation #main-navbar-collapse .menu li a:hover {
+  color: #000000 !important;
+}
+#color a,
+#color .link {
+  color: #ffffff;
+}
+#color a:hover,
+#color a:focus,
+#color .link:hover,
+#color .link:focus {
+  color: #000000;
+}
+.contextual-links a {
+  color: #333 !important;
+}
+.contextual-links a:hover {
+  color: #000 !important;
+  background: #e7e8e9 !important;
+}
+#block-views-block-featured-services-block-1 .views-row .icon_bg,
+.forum table thead {
+  background: #12abf1;
+  border: 1px solid #12abff;
+}
+.pricing-table.views-row:hover {
+  box-shadow: 0 0 10px #12abff;
+}
+#block-views-block-featured-services-block-1 .views-row .icon_bg:hover i,
+.pricing-table .views-field-title,
+.views-field-field-designation,
+.views-field-field-price-table,
+.views-field-field-button-name a:hover {
+  color: #12abf1;
+}
+.pricing-table .views-field-title {
+  text-shadow: 1px 1px 0px #12abff;
+}
+#site-navigation .menu li a:hover,
+.history-content .views-field-field-left-info:after,
+.pricing-table.views-row:nth-child(2),
+.views-field-field-button-name a,
+#block-views-block-category-blog-block-1,
+#block-views-block-recent-blog-block-1 {
+  background: #12abff !important;
+}
+.views-field-field-button-name a:hover {
+  border: 2px solid #12abff;
+}
+/*.menu-item--expanded .menu {
+  background: #12abf1;
+}*/
+.management.views-row .views-field-field-images-management .post_name {
+  border-left: 9px solid #12abff;
+  border-right: 9px solid #12abff;
+}
+.form-actions .form-submit,
+#search-form .form-submit,
+ul.inline li a,
+ul.links.inline li a {
+  background: #000000;
+  font-size: 14px;
+  font-weight: 300;
+  background-image: linear-gradient(45deg, rgba(255,255,255,.0) 30%, rgba(255,255,255,.8), rgba(255,255,255,.0) 70%), radial-gradient(190% 100% at 50% 0%, rgba(255,255,255,.7) 0%, rgba(255,255,255,.5) 0%, rgba(0,0,0,0) 50%);
+  /* background-image: linear-gradient(45deg, rgba(255,255,255,.0) 30%, rgba(255,255,255,.8), rgba(255,255,255,.0) 70%), radial-gradient(190% 100% at 50% 0%, rgba(255,255,255,.7) 0%, rgba(255,255,255,.5) 50%, rgba(0,0,0,0) 50%); */
+  background-repeat: no-repeat;
+  background-size: 200% 100%, auto;
+  background-position: 200% 0, 0 0;
+  box-shadow: rgba(0,0,0,.3) 0 2px 5px;
+}
+.form-actions .form-submit:hover,
+.form-actions .form-submit:focus,
+#search-form .form-submit:hover,
+#search-form .form-submit:focus {
+  background-color: #000000;
+  transition: .5s linear;
+  background-position: -200% 0, 0 0;
+}
+a:active,
+.link:active {
+  color: #23aeff;
+}
+.site-footer {
+  background: #2c2c28;
+  color: #ffffff;
+}
+#footer .bottom_footer a {
+  color: #ffffff;
+}
+#footer a:hover {
+  color: #cccccc;
+}
+.region-header,
+.region-header a,
+.region-header li a.is-active,
+.site-branding__text,
+.site-branding,
+.site-branding__text a,
+.site-branding a,
+.region-secondary-menu .menu-item a,
+.region-secondary-menu .menu-item a.is-active {
+  color: #fffeff;
+}
+.sidebar-first {
+  background: #12abf1;
+}
+
+/* ---------- Color Form ----------- */
+
+[dir="rtl"] .color-form .color-palette {
+  margin-left: 0;
+  margin-right: 20px;
+}
+[dir="rtl"] .color-form .form-item label {
+  float: right;
+}
+[dir="rtl"] .color-form .color-palette .lock {
+  right: -20px;
+  left: 0;
+}

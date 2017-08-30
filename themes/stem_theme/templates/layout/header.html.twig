@@ -1,0 +1,81 @@
+{# @stem_theme theme header #}
+
+{% if page.header_top_left or page.header_top_right %}
+<div id="header-top" class="header-top">
+  <div class="container">
+    <div class="row">
+      {% if page.header_top_left %}
+	  <div class="col-sm-6 header-top-left">
+			{{ page.header_top_left }}
+      </div>
+	  {% endif %}
+	  {% if page.header_top_right %}
+      <div class="col-sm-6 header-top-right">
+			{{ page.header_top_right }}
+      </div>
+	  {% endif %}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if page.header or page.search %}
+<header id="header" class="header main-header">
+<!-- Header and Navbar -->
+  <div class="navbar navbar-default">
+    <div class="container">
+      <div class="row">
+      <div class="navbar-header col-md-3 nav-head-wrap header-brand">
+        <button type="button" class="navbar-toggle">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        {% if page.header %}
+		<div class="header-container">
+          {{ page.header }}
+        </div>
+		{% endif %}
+
+      </div>
+      <!-- Navigation -->
+      <div id="nav-menu-wrap" class="col-md-9 nav-menu-wrap">
+	  <div class="container-wrap">
+	  <div class="nav-region">
+        {% if page.primary_menu %}
+          {{ page.primary_menu }}		  
+        {% endif %}
+		{% if page.search or sidenav or page.shopping_cart %}
+		<div class="header-element">
+			{% if header_social_icon %}
+			<div class="header-element-item header-element-social">
+				<button type="button" class="header-element-icon social-icon" data-toggle="modal" data-target="#social-modal"><i class="fa fa-share-alt"></i></button>
+			</div>
+			{% endif %}
+			
+			{% if page.search %}
+				<div class="header-element-item header-element-search">
+				<div id="search">
+				<span class="header-element-icon search-icon search-trigger"><i class="fa fa-search"></i></span>
+				<div class="search-bar">
+				<div class="search-wrap">{{ page.search }}</div>
+				</div>
+				</div>
+				</div>
+			{% endif %}
+
+		</div>
+		{% endif %}		
+      </div>
+	  </div>
+	  </div>
+      <!-- End Navigation -->
+        </div>
+    </div>
+  </div>
+ <!--End Header & Navbar -->
+</header>
+{% endif %}
+</div>
+<!--End Header Wrap -->

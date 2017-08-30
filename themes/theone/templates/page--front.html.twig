@@ -1,0 +1,117 @@
+
+
+  {% if page.branding or page.navigation %}
+    <nav class="navbar navbar-default navbar-fixed-top mainnav">
+      <div class="header-head">
+        <div class="hh-container clearfix">
+          <span class="left">
+            {{ page.top_left }}
+          </span>
+          <span class="right">
+            {{ page.top_right }}
+          </span>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="navbar-header">
+          {{ page.branding }}
+          {{ page.navigation }}
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+      				<span class="icon-bar"></span>
+      				<span class="icon-bar"></span>
+      				<span class="icon-bar"></span>
+      			</button>
+        </div>
+      </div>
+    </nav>
+  {% endif %}
+
+    <!-- Container (Banner) -->
+  {% if page.banner %}
+    <header>
+      <div class="header text-center">
+        {{ page.banner }}
+      </div>
+    </header>
+  {% endif %}
+
+    <!-- Container (About) -->
+  {% if page.about1 %}
+    <div class="container-fluid text-center">
+      <div class="about_top">
+        {{ page.about1 }}
+      </div>
+    </div>
+  {% endif %}
+
+  {% if page.about2 or page.about3 or page.about4 %}
+    <div class="container con">
+      <div class="row">
+        <div class="col-sm-4">
+          <i class="fa fa-heart-o fa-4x" aria-hidden="true"></i>
+          <div class="column">
+            {{ page.about2 }}
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <i class="fa fa-lightbulb-o fa-4x" aria-hidden="true"></i>
+          <div class="column">
+            {{ page.about3 }}
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <i class="fa fa-star-o fa-4x" aria-hidden="true"></i>
+          <div class="column">
+            {{ page.about4 }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+    <!-- Container (Showcase) -->
+
+    <!-- Container (Contact Section) -->
+  {% if page.contact %}
+    <div class="container-fluid text-center contact">
+      {{ page.contact }}
+      <button type="button" class="btn">{{ page.contact_button_text}}</button>
+    </div>
+  {% endif %}
+
+    <!-- Footer -->
+  {% if page.footer1 or page.footer2 or page.footer3 or page.footer4 %}
+    <footer>
+      <div class="container foot">
+        <div class="footer">
+          <div class="col-sm-3">
+            {{ page.footer1 }}
+            <p class="foot-arrow">More about us &nbsp;<i class="fa fa-arrow-right" aria-hidden="true"></i></p>
+          </div>
+          <div class="col-sm-3">
+            {{ page.footer2 }}
+          </div>
+          <div class="col-sm-3">
+            {{ page.footer3 }}
+            {{ page.foot_address }}
+            {{ page.foot_phone }}
+            {{ page.foot_email }}
+          </div>
+          <div class="col-sm-3">
+            {{ page.footer4 }}
+
+          </div>
+        </div>
+      </div>
+    </footer>
+  {% endif %}
+
+  {% if page.watermark or page.footer_menu %}
+    <div class="foot-container clearfix">
+      <div class="footer-foot">
+        {{ page.watermark }}
+        {{ page.footer_menu }}
+    </div>
+  </div>
+{% endif %}

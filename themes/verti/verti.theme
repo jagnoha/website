@@ -1,0 +1,115 @@
+<?php
+
+/**
+* @file
+* Functions to support theming in the Bartik theme.
+*/
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Template\Attribute;
+
+/**
+* Implements hook_preprocess_HOOK() for HTML document templates.
+*
+* Adds body classes if certain regions have content.
+*/
+function verti_preprocess_html(&$variables) {
+  // Add information about the number of sidebars.
+  if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
+    $variables['attributes']['class'][] = 'two-sidebars';
+  }
+  elseif (!empty($variables['page']['sidebar_first'])) {
+    $variables['attributes']['class'][] = 'left-sidebar';
+  }
+  elseif (!empty($variables['page']['sidebar_second'])) {
+    $variables['attributes']['class'][] = 'right-sidebar';
+  }
+  else {
+    $variables['attributes']['class'][] = 'no-sidebars';
+  }
+
+}
+
+function verti_preprocess_page(&$variables) {
+
+  // Add information about the number of sidebars.
+  if (!empty($variables['page']['sidebar_first']) && !empty($variables['page']['sidebar_second'])) {
+    $variables['contentlayout'] = '6u';
+    $variables['sidebarfirst'] = '3u';
+    $variables['sidebarsecond'] = '3u';
+  }
+  elseif (!empty($variables['page']['sidebar_first'])) {
+    $variables['contentlayout'] = '8u';
+    $variables['sidebarfirst'] = '4u';
+  }
+  elseif (!empty($variables['page']['sidebar_second'])) {
+    $variables['contentlayout'] = '8u';
+    $variables['sidebarsecond'] = '4u';
+  }
+  else {
+    $variables['contentlayout'] = '';
+  }
+
+  // Social media global variable.
+  $variables['show_footer_menu'] = theme_get_setting('show_footer_menu');
+  $variables['footer_menu_item_1'] = theme_get_setting('footer_menu_item_1');
+  $variables['footer_menu_item_2'] = theme_get_setting('footer_menu_item_2');
+  $variables['footer_menu_item_3'] = theme_get_setting('footer_menu_item_3');
+}
+
+function verti_form_system_theme_settings_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state) {
+
+
+  //Show/Hide credit
+  $form['verti_settings']['footer_menu'] = array(
+    '#type' => 'details',
+    '#title' => t('Footer Menu'),
+  );
+
+  $form['verti_settings']['footer_menu']['show_footer_menu'] = array(
+    '#type' => 'checkbox',
+    '#title' => t("Show/Hide Footer Menu"),
+    '#default_value' => theme_get_setting('show_footer_menu'),
+    '#description'   => t("Show / Hide Footer Menu"),
+  );
+
+
+  $form['verti_settings']['footer_menu']['footer_menu_item_1'] = array(
+    '#type' => 'textfield',
+    '#title' => t("Footer Menu item 1"),
+    '#default_value' => theme_get_setting('footer_menu_item_1'),
+    '#description'   => t("Footer Menu item 1"),
+  );
+
+  $form['verti_settings']['footer_menu']['footer_menu_item_2'] = array(
+    '#type' => 'textfield',
+    '#title' => t("Footer Menu item 2"),
+    '#default_value' => theme_get_setting('footer_menu_item_2'),
+    '#description'   => t("Footer Menu item 2"),
+  );
+
+  $form['verti_settings']['footer_menu']['footer_menu_item_3'] = array(
+    '#type' => 'textfield',
+    '#title' => t("Footer Menu item 3"),
+    '#default_value' => theme_get_setting('footer_menu_item_3'),
+    '#description'   => t("Footer Menu item 3"),
+  );
+
+}
+
+
+/**
+* Implements hook_preprocess_HOOK() for maintenance-page.html.twig.
+*/
+function verti_preprocess_maintenance_page(&$variables) {
+  // By default, site_name is set to Drupal if no db connection is available
+  // or during site installation. Setting site_name to an empty string makes
+  // the site and update pages look cleaner.
+  // @see template_preprocess_maintenance_page
+  if (!$variables['db_is_active']) {
+    $variables['site_name'] = '';
+  }
+
+  // Bartik has custom styling for the maintenance page.
+  $variables['#attached']['library'][] = 'bartik/maintenance_page';
+}

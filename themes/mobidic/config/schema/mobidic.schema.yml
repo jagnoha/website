@@ -1,0 +1,5 @@
+# Schema for the configuration files of the Mobidic theme.
+
+mobidic.settings:
+  type: theme_settings
+  label: 'Mobidic settings'

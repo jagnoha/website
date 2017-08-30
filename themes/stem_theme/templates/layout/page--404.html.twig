@@ -1,0 +1,88 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a single page.
+ */
+#}
+<div id="wrapper" class="wrapper">
+<div id="page" class="{{ header_theme }} wide-layout">
+<div id="content-wrap" class="clearfix"> 
+{% if header_style == 'bottom-header' %}
+<div class="bottom-header-wrap">
+	<!-- Header -->
+	{% include '@stem_theme/layout/header.html.twig' %}
+	<!-- End Header -->
+	
+	{% if page.slider %}
+	<!-- Slider -->
+	<div id="slider" class="clearfix">        
+		<div class="container">
+			<div class="row">
+				{{ page.slider }}
+			</div>
+		</div>  
+	</div>
+	<!-- End Slider -->
+	{% endif %}
+
+{%  if page.page_title and not is_front %}
+<!-- Page Title -->
+  <div id="page-title" class="page-title title-parallax title-left title-large">
+      <div class="container">
+        {{ page.page_title }}
+      </div>
+  </div>
+  <!-- End Page Title -->
+{% endif %}
+
+
+<!-- layout -->
+<div id="page-wrapper">
+
+  <div class="container">	
+    <div class="row layout">
+	  <!--- Start content -->
+        <div class="content_layout">
+          <div class="col-md-12">
+			<div class="error-404 text-middle text-center">
+				<div class="row">
+				<div class="col-md-6">
+				<div class="error-404-number">404</div>
+				</div>
+				<div class="col-md-6">
+				<div class="text-left">
+				<h1 class="text-medium">Sorry, This Page Could Not Be Found!</h1>
+				<p class="lead">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+				<a class="button" href="{{ front_page }}">Go Back to Homepage</a>
+				</div>
+				</div>
+				</div>
+			</div>
+          </div>
+        </div>
+      <!---End content -->
+    </div>
+  </div>
+
+</div>
+<!-- End layout -->
+
+
+{% if page.content_wide %}
+<!-- Start content wide -->
+<div id="content_wide" class="content-wide">        
+    {{ page.content_wide }}
+</div>
+<!-- End content wide -->
+{% endif %}
+</div>
+
+{% include '@stem_theme/layout/footer.html.twig' %}
+
+</div>
+</div>
+{% if preloader %}
+<div class="preloader">
+    <div class="preloader_image"></div>
+</div>
+{% endif %}

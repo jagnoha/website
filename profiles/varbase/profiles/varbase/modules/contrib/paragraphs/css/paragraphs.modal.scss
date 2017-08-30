@@ -1,0 +1,33 @@
+ul.paragraphs-add-dialog-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  input.field-add-more-submit {
+    background-repeat: no-repeat;
+    background-position: 10px;
+    background-size: auto calc(100% - 10px);
+    padding-left: 40px;
+    text-align: left;
+    border-radius: 3px;
+  }
+}
+
+.paragraphs-add-dialog-row {
+  padding: 5px;
+
+  button {
+    width: 100%;
+    min-width: 200px;
+  }
+}
+
+input.paragraph-type-add-modal-button , .widget {
+ max-width: 30px;
+ padding-left: 8px;
+ padding-right: 10px;
+}
+
+.adminimal .button , .button{
+ transition: all 1s !important;
+}

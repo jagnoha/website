@@ -1,0 +1,47 @@
+name: theone
+# core: 8.x
+type: theme
+base theme: bootstrap
+
+description: 'theONE is a free responsive and fully customizable Drupal 8 theme based on Bootstrap 3 framework. It is a generic theme and is best suited for businesses, blogs or magazine sites. Moreover, it can be used as a base theme to give your own theme a very specific business profile look.'
+
+libraries:
+  - theone/global-styling
+
+regions:
+  navigation: 'Navigation'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  top_left: 'Top Navigation Left'
+  top_right: 'Top Navigation Right'
+  branding: 'Site Branding'
+  banner: 'Banner'
+  about1: 'About Top'
+  about2: 'About Column 1'
+  about3: 'About Column 2'
+  about4: 'About Column 3'
+  showcase: 'Showcase'
+  contact: 'Contact'
+  contact_button_text: 'Contact Button text'
+  footer1: 'Footer Column 1'
+  footer2: 'Footer Column 2'
+  footer3: 'Footer Column 3'
+  footer4: 'Footer Column 4'
+  foot_address: 'Footer Address'
+  foot_phone: 'Footer Phone'
+  foot_email: 'Footer Email'
+  watermark: 'Watermark'
+  footer_menu: 'Footer Menu'
+
+# Information added by Drupal.org packaging script on 2017-07-10
+version: '8.x-1.0'
+core: '8.x'
+project: 'theone'
+datestamp: 1499671146

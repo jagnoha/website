@@ -1,0 +1,96 @@
+/* ---------- Color Module Styles ----------- */
+a:hover,
+a:focus,
+#header-top ul li a:hover,
+.footer-widget a:hover,
+.tag-cloud li .tag-name a:hover,
+.messages a,
+.menu-base-theme a.current,
+.menu-base-theme a.is-active,
+.menu-base-theme a:hover,
+.menu-base-theme a:focus,
+.menu-base-theme a:active,
+.menu-base-theme ul a:hover,
+.menu-base-theme ul a:focus,
+.menu-base-theme ul a:active,
+.menu-base-theme a.highlighted span.sub-arrow:before,
+.single-page nav .nav.menu li.active a,
+.social-icon li a:hover,
+.maintenance-icon,
+.text-colored,
+.text-colored h1,
+.text-colored h2,
+.text-colored h3,
+.text-colored h4,
+.text-colored h5,
+.text-colored h6,
+.text-colored .lead,
+.text-colored p,
+.text-colored a,
+.text-colored i,
+.text-colored li,
+.text-colored label,
+.text-colored div:not(.alert),
+.text-colored span {
+    color: #e7d553;
+}
+
+.block-title:after,
+.tag-cloud li a:hover,
+.pager li.pager__item.is-active > a,
+.pager li > a:hover,
+#page-title.title-colored-bg,
+.back-to-top,
+.dark-header #pre-header,
+.panel-heading.colored .panel-title > a, 
+.panel-heading.colored .panel-title > a.collapsed:hover, 
+.panel-heading.colored .panel-title > a:hover, 
+.panel-heading.colored .panel-title > a.collapsed,
+.colored-bg,
+.btn,
+.btn-primary,
+.colored-header.default-header3 .nav-menu-wrap,
+input[type="submit"],
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.search-container .search-block-form input[type="submit"],
+.header-element .search-wrap input[type="submit"],
+.colored-header #header,
+.colored-header.colored-header-full .header-wrap,
+.colored-header .menu-base-theme ul,
+.colored-header.left_fixed_header .header-wrap,
+.colored-header.right_fixed_header .header-wrap,
+.colored-header-full.default-header3 #nav-menu-wrap,
+.header-element a.button:hover,
+.sidebar ul.menu li a.is-active,
+.colored-footer .footer-widget,
+.colored-footer .footer-bottom,
+.contact-social.social-media ul li a {
+    background-color: #e7d553;
+}
+
+.navbar-default .navbar-toggle:focus,
+.navbar-default .navbar-toggle:hover,
+.dark-header #pre-header,
+.dark-header .toggle-control a,
+.tag-cloud li a:hover,
+.pager li.pager__item.is-active > a, 
+.pager li > a:hover,
+.btn-primary,
+.header-element a.button:hover,
+.box-margin .header-wrap,
+.search-block-form input[type="submit"],
+.search-form input[type="submit"],
+.social-icon li a:hover,
+blockquote {
+	border-color: #e7d553;
+}
+
+body {
+  color: #555555;
+}
+#wrapper,
+.boxed-layout,
+.framed-layout #content-wrap {
+  background-color: #ffffff;
+}

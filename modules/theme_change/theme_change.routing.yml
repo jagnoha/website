@@ -1,0 +1,23 @@
+theme_change.paths:
+  path: '/admin/config/user-interface/theme-change'
+  defaults:
+    _form: '\Drupal\theme_change\Form\ThemeChangeConfig'
+    _title: 'Theme Change'
+  requirements:
+    _permission: 'administer theme change configuration'
+
+theme_change.list_page:
+  path: /admin/config/user-interface/theme-change/list
+  defaults:
+    _title: 'Theme Change Listing Page'
+    _form: \Drupal\theme_change\Form\ThemeChangeListForm
+  requirements:
+    _permission: 'access theme change list page'
+
+theme_change.delete:
+  path: /admin/config/user-interface/theme-change/delete
+  defaults:
+    _title: 'Theme Change Delete'
+    _form: \Drupal\theme_change\Form\ThemeChangeDeleteForm
+  requirements:
+    _permission: 'access theme change delete page'

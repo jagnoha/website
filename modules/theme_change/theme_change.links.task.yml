@@ -1,0 +1,11 @@
+theme_change.tab_1:
+  route_name : theme_change.paths
+  title: Add Theme Change
+  base_route: theme_change.paths
+  weight: 10
+
+theme_change.tab_2:
+  route_name: theme_change.list_page
+  title: Theme Change Listing
+  base_route: theme_change.paths
+  weight: 20

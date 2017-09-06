@@ -1,0 +1,6 @@
+url_redirect.collection:
+  title: 'URL Redirect'
+  route_name: 'entity.url_redirect.collection'
+  description: 'URL Redirect'
+  parent: system.admin_config
+  weight: 99

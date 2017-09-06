@@ -1,0 +1,6 @@
+'administer theme change configuration':
+  title: 'Administer Theme Change Config page'
+  description: 'Perform administration tasks for theme change page.'
+'access theme change list page':
+  title: 'Administer Theme Change Listing page'
+  description: 'Access theme change listing page.'
